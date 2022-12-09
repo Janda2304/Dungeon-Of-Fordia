@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameMusic
+  - canPickup
+  - masterVolumeSlider
   layers:
   - Default
   - TransparentFX

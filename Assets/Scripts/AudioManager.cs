@@ -10,7 +10,7 @@ using Scene = UnityEngine.SceneManagement.Scene;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioClip[] clips;
-    public AudioClip creditsMusic;
+    
     public AudioSource audioSource;
     
     
@@ -37,18 +37,12 @@ public class AudioManager : MonoBehaviour
     
     void Start()
     {
-        Scene currentScene = SceneManager.GetActiveScene();
-        string sceneName = currentScene.name;
-        if (sceneName == "Credits")
-        {
-            audioSource.Stop();
-            audioSource.PlayOneShot(creditsMusic);
-        }
+      
        
-        else
-        {
+       
+        
             StartCoroutine(playAudio());
-        }
+        
        
 
 

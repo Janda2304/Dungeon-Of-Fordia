@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetKeyDown(sprintKey))
+        if (Input.GetKey(sprintKey))
         {
             playerSpeed = sprintSpeed;
         }
