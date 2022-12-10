@@ -19,6 +19,7 @@ public class Burning : MonoBehaviour
         MouseLook.mouseSensitivity = 0;
         Cursor.lockState = CursorLockMode.None;
         
+
     }
 
     public void ExitToMenu()

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fire : MonoBehaviour
+public class FireSound : MonoBehaviour
 {
     
-    [SerializeField] private GameObject fireSource;
+    public GameObject fireSource;
 
 
     void Start()
@@ -17,9 +17,9 @@ public class Fire : MonoBehaviour
     {
        
             fireSource.SetActive(true);
-            
-        
-       
+          
+
+
 
 
     }

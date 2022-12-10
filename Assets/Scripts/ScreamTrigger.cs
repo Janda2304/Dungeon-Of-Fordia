@@ -8,6 +8,7 @@ public class ScreamTrigger : MonoBehaviour
     [SerializeField] private AudioClip screamClip;
     private bool stoppedPlaying = false;
     
+
     
     void OnTriggerEnter(Collider other)
     {
@@ -15,6 +16,7 @@ public class ScreamTrigger : MonoBehaviour
         {
             screamSource.PlayOneShot(screamClip);
             stoppedPlaying = true;
+           
         }
        
 
