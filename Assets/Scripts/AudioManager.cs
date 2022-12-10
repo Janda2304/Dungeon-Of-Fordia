@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Scene = UnityEngine.SceneManagement.Scene;
+
 
 
 public class AudioManager : MonoBehaviour
@@ -37,15 +35,7 @@ public class AudioManager : MonoBehaviour
     
     void Start()
     {
-      
-       
-       
-        
-            StartCoroutine(playAudio());
-        
-       
-
-
+        StartCoroutine(playAudio());
     }
 
 

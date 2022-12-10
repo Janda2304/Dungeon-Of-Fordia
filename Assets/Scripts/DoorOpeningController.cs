@@ -14,7 +14,7 @@ public class DoorOpeningController : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (isClosed)
+        if (isClosed && !doorAnimation.isPlaying)
         {
             
             doorAnimation.Play("doorOpen");
@@ -22,7 +22,7 @@ public class DoorOpeningController : MonoBehaviour
             isClosed = false;
             
         }
-        else
+        else if(!isClosed && !doorAnimation.isPlaying)
         {
             doorAnimation.Play("doorClose");
             _audioSource.PlayOneShot(doorAudio);

@@ -10,13 +10,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CharacterController CharacterController;
     
     private float playerSpeed = 0f;
-    [SerializeField] private float walkSpeed = 0f;
-    [SerializeField] private float sprintSpeed = 0f;
+    public float walkSpeed = 0f;
+    public float sprintSpeed = 0f;
     private KeyCode sprintKey = KeyCode.LeftShift;
     #endregion Movement Variables
     
     #region Jump Variables
-    [SerializeField] private int  jumpHeight;
+    public int  jumpHeight;
     public float gravity = -9.81f;
     Vector3 velocity;
     [SerializeField] private Transform _groundCheck;
