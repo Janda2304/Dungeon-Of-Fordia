@@ -2,19 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorOpeningController : MonoBehaviour
+public class LockedDoorOpening : DoorOpeningController
 {
-    public GameObject door;
-    public Animation doorAnimation;
-   
-    public AudioSource _audioSource;
-    public AudioClip doorAudio;
-    public bool isClosed = true;
-    
+    public bool haveKey = false;
+
 
     void OnMouseDown()
     {
-        if (isClosed && !doorAnimation.isPlaying)
+        if (isClosed && !doorAnimation.isPlaying && haveKey)
         {
             
             doorAnimation.Play("doorOpen");
@@ -22,15 +17,11 @@ public class DoorOpeningController : MonoBehaviour
             isClosed = false;
             
         }
-        else if(!isClosed && !doorAnimation.isPlaying)
+        else if(!isClosed && !doorAnimation.isPlaying && haveKey)
         {
             doorAnimation.Play("doorClose");
             _audioSource.PlayOneShot(doorAudio);
             isClosed = true;
         }
     }
-    
-    
-    
-    
 }
