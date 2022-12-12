@@ -27,7 +27,7 @@ public class Burning : MonoBehaviour
         
         _playerMovement.sprintSpeed = 15f;
         _playerMovement.walkSpeed = 7f;
-        _playerMovement.jumpHeight = 2;
+        _playerMovement.jumpHeight = 1;
         SceneManager.LoadScene("MainMenu");
     }
 }

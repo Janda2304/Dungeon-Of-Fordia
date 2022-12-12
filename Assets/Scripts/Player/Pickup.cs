@@ -1,80 +1,68 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-   [SerializeField] private GameObject curObject;
+    //pickup and move around objects with your mouse  like in portal   
 
-   [SerializeField] private Rigidbody curBody;
+    public float speed = 10;
+    public float maxDistance = 10;
 
-   [SerializeField] private Quaternion relRot;
+    private bool isHolding = false;
+    private GameObject heldObject;
+    private Rigidbody rb;
+    [SerializeField] private List<Rigidbody> objectRigidbodies = new List<Rigidbody>();
+    [SerializeField] [Range(1, 100)] private float maxVelocity;
 
- 
-
-    private void Update()
+    void Update()
     {
         if (Input.GetMouseButtonDown(0) )
         {
-            if (curObject == null)
-            {
-                pickupItem();
-            }
-            else
-            {
-                dropItem();
-            }
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (curObject != null)
-        {
-            reposObject();
-        }
-    }
-
-    private void reposObject()
-    {
-        float num = 2.5f;
-        if (base.transform.forward.y < -0.7f)
-        {
-            num = 2f;
-        }
-
-        Vector3 vector = base.transform.position + base.transform.forward * num;
-        Quaternion rotation = base.transform.rotation * relRot;
-        curBody.velocity = (vector - curBody.position) * 10f;
-        curBody.rotation = rotation;
-        curBody.angularVelocity = Vector3.zero;
-    }
-
-    private void pickupItem()
-    {
-        Physics.Raycast(base.transform.position, base.transform.forward, out var hitInfo, 5f);
-        if (!(hitInfo.rigidbody == null) && hitInfo.transform.gameObject.layer == 10)
-        {
-            curBody = hitInfo.rigidbody;
-            curBody.useGravity = false;
-            curBody.constraints = RigidbodyConstraints.FreezeRotation;
             
-            curObject = hitInfo.rigidbody.gameObject;
-            curObject.transform.parent = base.transform;
-            relRot = curObject.transform.localRotation;
-            curObject.transform.parent = null;
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+               
+                if (hit.distance <= maxDistance)
+                {
+                    isHolding = true;
+                    heldObject = hit.collider.gameObject;
+                    rb = heldObject.GetComponent<Rigidbody>();
+
+                }
+            }
         }
-    }
 
-    private void dropItem()
-    {
-        curBody.useGravity = true;
-        curBody = null;
-        curObject = null;
-        
-    }
+        if (rb = null)
+        {
+            print("null");
+        }
+        else 
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                isHolding = false;
+                heldObject = null;
+         
+            }
 
-    public bool isHolding()
-    {
-        return curObject != null;
+            if (isHolding && heldObject.tag == "Pickup")
+            {
+                foreach (var _rigidbody in objectRigidbodies)
+                {
+                   
+                    _rigidbody.freezeRotation = true;
+                   
+                }
+
+                heldObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 4));
+            }
+        }
+
+       
     }
+    
+    
 }
 
