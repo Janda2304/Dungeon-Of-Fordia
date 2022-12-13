@@ -6,6 +6,7 @@ public class ScreamTrigger : MonoBehaviour
 {
     [SerializeField] private AudioSource screamSource;
     [SerializeField] private AudioClip screamClip;
+    [SerializeField] private GameObject trigger;
     private bool stoppedPlaying = false;
     
 
@@ -16,7 +17,7 @@ public class ScreamTrigger : MonoBehaviour
         {
             screamSource.PlayOneShot(screamClip);
             stoppedPlaying = true;
-           
+           trigger.SetActive(false);
         }
        
 

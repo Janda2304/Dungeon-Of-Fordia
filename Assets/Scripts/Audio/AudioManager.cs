@@ -8,34 +8,23 @@ using UnityEngine.SceneManagement;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioClip[] clips;
-    
+    public bool clip2 = false;
     public AudioSource audioSource;
-    
-    
 
-    public  IEnumerator playAudio()
+
+    void FixedUpdate()
     {
-        yield return null;
-
-        for (int i = 0; i < clips.Length; i++)
+        if (!audioSource.isPlaying && !clip2)
         {
-            audioSource.clip = clips[i];
-            audioSource.Play();
-
-            while (audioSource.isPlaying)
-            {
-                yield return null;
-            }
-
+            audioSource.PlayOneShot(clips[0]);
+            clip2 = true;
         }
-    }
-    
-  
-    
-    
-    void Start()
-    {
-        StartCoroutine(playAudio());
+        else if (!audioSource.isPlaying && clip2)
+        {
+            audioSource.PlayOneShot(clips[1]);
+            clip2 = false;
+        }
+       
     }
 
 

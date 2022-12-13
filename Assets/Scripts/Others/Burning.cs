@@ -7,17 +7,21 @@ public class Burning : MonoBehaviour
 {
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private PlayerMovement _playerMovement;
-
+    
 
 
     void OnTriggerEnter(Collider other)
     {
-        deathScreen.SetActive(true);
-        _playerMovement.sprintSpeed = 0f;
-        _playerMovement.walkSpeed = 0f;
-        _playerMovement.jumpHeight = 0;
-        MouseLook.mouseSensitivity = 0;
-        Cursor.lockState = CursorLockMode.None;
+        if (other.gameObject.tag == "Player")
+        {
+            deathScreen.SetActive(true);
+            _playerMovement.sprintSpeed = 0f;
+            _playerMovement.walkSpeed = 0f;
+            _playerMovement.jumpHeight = 0;
+            MouseLook.mouseSensitivity = 0;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        
         
 
     }

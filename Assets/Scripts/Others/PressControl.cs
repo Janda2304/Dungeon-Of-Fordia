@@ -1,56 +1,79 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class PressControl : MonoBehaviour
 {
     [SerializeField] private Animation pressAnimation;
-    [SerializeField] private Collider floorCollider;
+    [SerializeField] private Collider fakeFloorCollider;
+    [SerializeField] private GameObject fakeFloor;
     [SerializeField] private GameObject press;
     [SerializeField] private GameObject movingFloor;
     [SerializeField] private Collider movingFloorCollider;
     [SerializeField] private AudioSource BonkSource;
     [SerializeField] private AudioClip BonkClip;
-    public bool bonkingEnabled = false;
+    [SerializeField] private Vector3 movingFloorPos = new Vector3(10.5975f, -10.75f, -15.77f);
+    private bool pressed = false;
 
     void Update()
     {
-        
-        pressAnimation.Play("press"); 
-        
-        if(movingFloor.transform.position.y >= -1.9 )
+        #region Animation Control
+        if (!pressAnimation.isPlaying && !pressed)
         {
-            movingFloor.SetActive(false);
+            pressAnimation.Play("pressDown");
+            pressed = true;
+        }
+        else if (!pressAnimation.isPlaying && pressed)
+        {
+            BonkSource.PlayOneShot(BonkClip);
+            pressAnimation.Play("pressUp");
+            pressed = false;
+        }
+        
+
+        #endregion Animation Control
+
+        #region Moving Floor On/Off
+        if (press.transform.position.y >= -0.2f)
+        {
+            
+            movingFloor.SetActive(true);
+            fakeFloorCollider.enabled = false;
         }
         else
         {
+            
             movingFloor.SetActive(true);
+            fakeFloor.SetActive(true);
         }
+        #endregion Moving Floor On/Off
 
-        if (press.transform.position.y <= -1.5f && bonkingEnabled)
-        {
-            BonkSource.PlayOneShot(BonkClip);
-        }
-
-        if (movingFloor.transform.position.y <= 3)
-        {
-            movingFloorCollider.enabled = false;
-        }
         
+       
+       
+
     }
 
-    
-    //pri enternuti hrace a zaroven touchovani podlahy vypni collider podlahy jinak do nothing 
-    
     void OnTriggerEnter(Collider other)
     {
+        #region Fake Floor Collider On/Off
+       
+            fakeFloorCollider.isTrigger = true;
+         
+           
         
-        floorCollider.enabled = false;
-            
-            
+                
+          
         
         
-        
+
+        #endregion Fake Floor Collider On/Off
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        fakeFloor.SetActive(true);
+        fakeFloorCollider.isTrigger = false;
+        movingFloorCollider.isTrigger = false;
     }
 
    

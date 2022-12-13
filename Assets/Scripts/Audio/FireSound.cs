@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireSound : MonoBehaviour
 {
-    
+    [SerializeField] private GameObject trigger;
     public GameObject fireSource;
 
 
@@ -17,7 +17,7 @@ public class FireSound : MonoBehaviour
     {
        
             fireSource.SetActive(true);
-          
+          trigger.SetActive(false);
 
 
 
