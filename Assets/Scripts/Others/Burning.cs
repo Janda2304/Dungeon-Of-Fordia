@@ -29,7 +29,7 @@ public class Burning : MonoBehaviour
     public void ExitToMenu()
     {
         
-        _playerMovement.sprintSpeed = 15f;
+        _playerMovement.sprintSpeed = 13f;
         _playerMovement.walkSpeed = 7f;
         _playerMovement.jumpHeight = 1;
         SceneManager.LoadScene("MainMenu");

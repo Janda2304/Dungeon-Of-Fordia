@@ -1,68 +1,80 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-    //pickup and move around objects with your mouse  like in portal   
+    private GameObject curObject;
 
-    public float speed = 10;
-    public float maxDistance = 10;
+    private Rigidbody curBody;
 
-    private bool isHolding = false;
-    private GameObject heldObject;
-    private Rigidbody rb;
-    [SerializeField] private List<Rigidbody> objectRigidbodies = new List<Rigidbody>();
-    [SerializeField] [Range(1, 100)] private float maxVelocity;
+    private Quaternion relRot;
 
-    void Update()
+  
+    
+
+    private void Update()
     {
-        if (Input.GetMouseButtonDown(0) )
+        if (Input.GetMouseButtonDown(0))
         {
-            
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
+            if (curObject == null)
             {
-               
-                if (hit.distance <= maxDistance)
-                {
-                    isHolding = true;
-                    heldObject = hit.collider.gameObject;
-                    rb = heldObject.GetComponent<Rigidbody>();
-
-                }
+                pickupItem();
+            }
+            else
+            {
+                dropItem();
             }
         }
-
-        if (rb = null)
+        
+        if (curObject != null)
         {
-            print("null");
+            reposObject();
         }
-        else 
-        {
-            if (Input.GetMouseButtonUp(0))
-            {
-                isHolding = false;
-                heldObject = null;
-         
-            }
-
-            if (isHolding && heldObject.tag == "Pickup")
-            {
-                foreach (var _rigidbody in objectRigidbodies)
-                {
-                   
-                    _rigidbody.freezeRotation = true;
-                   
-                }
-
-                heldObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 4));
-            }
-        }
-
-       
     }
-    
-    
+
+    private void FixedUpdate()
+    {
+        
+    }
+
+    private void reposObject()
+    {
+        float num = 4.25f;
+        if (base.transform.forward.y < -0.7f)
+        {
+            num = 2f;
+        }
+        Vector3 vector = base.transform.position + base.transform.forward * num;
+        Quaternion rotation = base.transform.rotation * relRot;
+        curBody.velocity = (vector - curBody.position) * 10f;
+        curBody.rotation = rotation;
+        curBody.angularVelocity = Vector3.zero;
+    }
+
+    private void pickupItem()
+    {
+        Physics.Raycast(base.transform.position, base.transform.forward, out var hitInfo, 5f);
+        if (!(hitInfo.rigidbody == null) && hitInfo.transform.gameObject.tag == "Pickup")
+        {
+            curBody = hitInfo.rigidbody;
+            curBody.useGravity = false;
+            curObject = hitInfo.rigidbody.gameObject;
+            curObject.transform.parent = base.transform;
+            relRot = curObject.transform.localRotation;
+            curObject.transform.parent = null;
+        }
+    }
+
+    private void dropItem()
+    {
+        curBody.useGravity = true;
+        curBody = null;
+        curObject = null;
+    }
+
+    public bool isHolding()
+    {
+        return curObject != null;
+    }
 }
+
 
