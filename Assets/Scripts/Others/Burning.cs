@@ -5,33 +5,29 @@ using UnityEngine.SceneManagement;
 
 public class Burning : MonoBehaviour
 {
-    [SerializeField] private GameObject deathScreen;
-    [SerializeField] private PlayerMovement _playerMovement;
-    
+    public GameObject deathScreen;
+    [HideInInspector] public bool isDeath;
 
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && !isDeath)
         {
             deathScreen.SetActive(true);
-            _playerMovement.sprintSpeed = 0f;
-            _playerMovement.walkSpeed = 0f;
-            _playerMovement.jumpHeight = 0;
-            MouseLook.mouseSensitivity = 0;
+            Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
+            isDeath = true;
         }
         
         
 
     }
 
+   
+
     public void ExitToMenu()
     {
-        
-        _playerMovement.sprintSpeed = 13f;
-        _playerMovement.walkSpeed = 7f;
-        _playerMovement.jumpHeight = 1;
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
     }
 }

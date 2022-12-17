@@ -19,7 +19,7 @@ public class FalloutController : MonoBehaviour
    [HideInInspector] public bool torchPuzzlePosTp = false;
 
 
-  /* void Start()
+    void Start()
    {
        if (startPosTp)
        {
@@ -37,7 +37,7 @@ public class FalloutController : MonoBehaviour
        {
            player.transform.position = torchPuzzlePosition;
        }
-   }*/
+   }
    
    
     void OnTriggerEnter(Collider other)

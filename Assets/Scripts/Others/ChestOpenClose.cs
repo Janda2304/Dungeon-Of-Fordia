@@ -17,6 +17,7 @@ public class ChestOpenClose : MonoBehaviour
         if (!outroPlayed)
         {
             outroSound.Play();
+            outroPlayed = true;
         }
         if (!chestAnimation.isPlaying && !chestSound.isPlaying && !isOpen)
         {

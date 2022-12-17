@@ -28,7 +28,7 @@ public class PauseMenuManager : MonoBehaviour
         else if (Input.GetKeyDown(pauseKey) && pauseMenu.activeInHierarchy)
         {
             crosshair.SetActive(true);
-            pauseMenu.SetActive(false); 
+            pauseMenu.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
         }
         
@@ -39,6 +39,7 @@ public class PauseMenuManager : MonoBehaviour
     public void ExitToMenu()
     {
         SceneManager.LoadScene("MainMenu");
+       
     }
 
     
