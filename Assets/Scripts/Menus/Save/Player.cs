@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     public Burning _Burning;
     public PlayerMovement movement;
+    public WallPressControl _wallPress1;
+    public WallPressControl _wallPress2;
     public int level;
     public float walkSpeed;
     public float runSpeed;
@@ -28,8 +30,15 @@ public class Player : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
         
-        
-        
+        if (_wallPress1.isDeath || _wallPress2.isDeath)
+        {
+            _wallPress1.deathScreen.SetActive(false);
+            _wallPress2.deathScreen.SetActive(false);
+            Time.timeScale = 1;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+
         walkSpeed = movement.walkSpeed;
         runSpeed = movement.sprintSpeed;
         jumpHeight = movement.jumpHeight;

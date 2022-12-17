@@ -12,6 +12,7 @@ public class LeverGateControl : MonoBehaviour
     [SerializeField] private LeverController _lever3;
     [SerializeField] private LeverController _lever4;
     [SerializeField] private LeverController _lever5;
+    [SerializeField] private LeverController _lever6;
     [Header("other")]
     [SerializeField] private Animation gateAnimation;
     [SerializeField] private AudioSource source;
@@ -20,12 +21,13 @@ public class LeverGateControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_lever1.isLeverPressed && _lever3.isLeverPressed && _lever4.isLeverPressed && !_lever2.isLeverPressed && !_lever5.isLeverPressed && !animPlayed)
+        if (!_lever1.isLeverPressed && _lever2.isLeverPressed && _lever3.isLeverPressed && !_lever4.isLeverPressed && _lever5.isLeverPressed && !_lever6.isLeverPressed && !animPlayed)
         {
             gateAnimation.Play("gateOpen");
             source.PlayOneShot(clip);
             animPlayed = true;
         }
+       
     }
     
     
